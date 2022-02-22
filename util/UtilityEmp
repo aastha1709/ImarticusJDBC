@@ -1,1 +1,53 @@
+package com.ijdbc.test.util;
+
+import com.ijdbc.test.exception.UserDefinedException;
+
+public class UtilityEmp {
+
+	public static boolean choiceValidation(String choice) throws UserDefinedException {
+		String pattern = "[0-4]{1}";
+		if (choice.matches(pattern)) {
+			return true;
+		} else {
+			throw new UserDefinedException("Choice must be in correct format and from the range 1 to 4");
+		}
+	}
+	public static boolean idValidation(String choice) throws UserDefinedException {
+		String pattern = "[0-9]{4}";
+		if (choice.matches(pattern)) {
+			return true;
+		} else {
+			throw new UserDefinedException("id must be in correct format i.e 4 digit format");
+		}
+	}
+
+	public static boolean nameValidation(String name) throws UserDefinedException {
+		String pattern = "^[A-Za-z]+";
+		if (name.matches(pattern)) {
+			return true;
+		} else {
+			throw new UserDefinedException("Name must be in correct format");
+		}
+	}
+
+	public static boolean addressValidation(String address) throws UserDefinedException {
+		String pattern = "[A-Za-z0-9/-]+";
+		if (address.matches(pattern)) {
+			return true;
+		} else {
+			throw new UserDefinedException("Address must be in correct format");
+		}
+	}
+
+	public static boolean salaryValidation(String salary) throws UserDefinedException {
+		String pattern = "[0-9]+";
+		if (salary.matches(pattern)) {
+			return true;
+		} else {
+			throw new UserDefinedException("Salary must be in correct format");
+		}
+	}
+
+}
+
 
