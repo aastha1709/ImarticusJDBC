@@ -1,1 +1,44 @@
+package com.ijdbc.test.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import com.ijdbc.test.exception.UserDefinedException;
+
+public class ConnectionJDBC {
+	
+	private static String url = "jdbc:postgresql://localhost:5432/bank";
+	private static String userName = "postgres";
+	private static String password = "Krishna@1";
+	static Connection con = null;
+	public static Connection getConnection() {
+		
+		try {
+			con = DriverManager.getConnection(url , userName , password);
+		}
+		catch(SQLException s) {
+			s.printStackTrace();
+		}
+		return con;
+	}
+	
+	public static void closeConnection() throws UserDefinedException{
+		
+		if(con == null) {
+			throw new UserDefinedException("Connection not established");
+		}
+		else {
+			try {
+				con.close();
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+
+}
 
