@@ -1,1 +1,80 @@
+package com.ijdbc.test.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ijdbc.test.beans.employee;
+import com.ijdbc.test.exception.UserDefinedException;
+import com.ijdbc.test.util.ConnectionJDBC;
+
+public class EmployeeDAO {
+	
+	private Connection con = ConnectionJDBC.getConnection();
+	
+	public String addEmployee(employee e) throws UserDefinedException{
+		
+		String query1 = "select * from employee where id = ?";
+		PreparedStatement pstmt1;
+		try {
+			pstmt1 = con.prepareStatement(query1);
+			pstmt1.setLong(1, e.getId());
+			ResultSet r = pstmt1.executeQuery();
+			boolean flag = false;
+			while(r.next()) {
+				flag = true;
+			}
+			if(flag) 
+				throw new UserDefinedException("Employee id already exists , please enter a valid id");				
+			
+			String query2 = "insert into employee values(? , ? , ? , ?)";
+			try {
+				PreparedStatement p = con.prepareStatement(query2);
+				p.setInt(1 , e.getId());
+				p.setString(2 , e.getName());
+				p.setString(3 , e.getAddress());
+				p.setInt(4 , e.getSalary());
+				
+				p.executeUpdate();
+			}
+			catch(SQLException s){				
+				s.printStackTrace();				
+			}
+		}
+		catch(SQLException s){
+			s.printStackTrace();
+		}
+		return "Details added successfully";	
+	}	
+
+
+	public List<employee> displayEmployee(){
+		List<employee> l = new ArrayList<employee>();
+		String query = "select * from employee";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(query);
+			ResultSet r = pstmt.executeQuery();
+			while(r.next()) {
+				employee e = new employee();
+				int id = r.getInt(1);
+				e.setId(id);
+				String name = r.getString(2);
+				e.setName(name);
+				String address = r.getString(3);
+				e.setAddress(address);
+				int salary = r.getInt(4);
+				e.setSalary(salary);
+				l.add(e);
+				
+			}
+		}
+		catch(SQLException s) {
+			s.printStackTrace();
+		}
+		return l;
+	}
+}
 
