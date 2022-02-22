@@ -1,1 +1,98 @@
+package com.ijdbc.test.demo;
 
+import java.util.Scanner;
+
+import com.ijdbc.test.beans.employee;
+import com.ijdbc.test.exception.UserDefinedException;
+import com.ijdbc.test.service.EmployeeImpl;
+import com.ijdbc.test.service.IEmployee;
+import com.ijdbc.test.util.UtilityEmp;
+
+public class test {
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		IEmployee emp = new EmployeeImpl();
+		while(true) {
+	
+			System.out.println("--------------------------------------------------------------------------");
+			System.out.println("Enter 1 to add employee details");
+			System.out.println("Enter 2 to display employee details");
+			System.out.println("Enter 3 to exit");
+			System.out.println("--------------------------------------------------------------------------");
+			String yourChoice = sc.next();
+			try {
+				if(UtilityEmp.choiceValidation(yourChoice)) {
+					int c = Integer.parseInt(yourChoice);
+					switch(c) {
+					case 1:
+						employee e = new employee();
+						while(true) {
+							System.out.println("Enter name:");
+							String name = sc.next();
+							try {
+								if(UtilityEmp.nameValidation(name)) {
+									e.setName(name);
+									break;
+								}
+							}
+							catch(UserDefinedException exc) {
+								System.out.println(exc.getMessage());
+								continue;
+							}
+						}
+						
+						while(true) {
+							System.out.println("Enter employee address ");
+							String address = sc.next();
+							try {
+								if(UtilityEmp.addressValidation(address)) {
+									e.setAddress(address);
+									break;
+								}
+							}
+							catch(UserDefinedException exc) {
+								System.out.println(exc.getMessage());
+								continue;
+							}
+						}
+						
+						while(true) {
+							System.out.println("Enter employee salary ");
+							String salary = sc.next();
+							try {
+								if(UtilityEmp.salaryValidation(salary)) {
+									e.setAddress(salary);
+									break;
+								}
+							}
+							catch(UserDefinedException exc) {
+								System.out.println(exc.getMessage());
+								continue;
+							}
+						}
+						System.out.println(emp.addEmployee(e));
+						break;
+					case 2:
+						System.out.println("Employee details are:");
+						System.out.println(emp.displayEmployee());
+						break;
+					case 3:
+						System.out.println("Thankyou!!");
+						System.exit(0);
+						sc.close();
+						break;
+					}
+				}				
+			}
+			catch(UserDefinedException exc) {
+				System.out.println(exc.getMessage());
+				continue;
+			}
+		
+		}
+		
+	}
+	
+}
