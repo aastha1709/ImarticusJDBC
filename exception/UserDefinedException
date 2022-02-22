@@ -1,3 +1,5 @@
+package com.ijdbc.test.exception;
+
 public class UserDefinedException  extends Exception {
 	
 	public UserDefinedException(String s) {
