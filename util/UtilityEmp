@@ -9,7 +9,7 @@ public class UtilityEmp {
 		if (choice.matches(pattern)) {
 			return true;
 		} else {
-			throw new UserDefinedException("Choice must be in correct format and from the range 1 to 4");
+			throw new UserDefinedException("Choice must be the range 1 to 4");
 		}
 	}
 	public static boolean idValidation(String choice) throws UserDefinedException {
@@ -17,7 +17,7 @@ public class UtilityEmp {
 		if (choice.matches(pattern)) {
 			return true;
 		} else {
-			throw new UserDefinedException("id must be in correct format i.e 4 digit format");
+			throw new UserDefinedException("Id must be in 4 digit format");
 		}
 	}
 
